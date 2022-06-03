@@ -1,4 +1,4 @@
-package AlevelCS.arrays;
+package AlevelCS.binary;
 
 public class bintree {
     String element;

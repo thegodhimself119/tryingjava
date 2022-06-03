@@ -2,16 +2,100 @@ package kmap;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class map {
-    static boxinfo[] infoclass = new boxinfo[16];
+    static boxinfo[] infoclass = new boxinfo[16];// array to stores objects which contain info of each box
     static int[][] map={{0,0,0,0},
-                        {0,0,0,0},
+                        {0,0,0,0},//matrix for output
                         {0,0,0,0},
                         {0,0,0,0}};
 
-    public static void initializevals(){
+    static void operations(char a, char b , char c, char d){//compares each value and adds in locatoin
+       // System.out.println(a);
+        int A = Character.getNumericValue(a);  //System.out.println(A);
+        int B = Character.getNumericValue(b);  
+        int C = Character.getNumericValue(c);  
+        int D = Character.getNumericValue(d);  
         
+        //System.out.println("OPERATIONS IS RUNNING");
+        for(int i=0; i<infoclass.length; i++){// loops throught each infoclass array
+            if(infoclass[i].a==A && infoclass[i].b==B && infoclass[i].c==C && infoclass[i].d==D){//compare with each object vals
+               String m= infoclass[i].loc[0];//if true extract the location of the box
+               
+               int mint = Integer.valueOf(m);
+               String k = infoclass[i].loc[1];
+               int kint = Integer.valueOf(k);
+
+               map[mint][kint]=1;//put 1 in that location
+                
+            }
+            
+            else{
+                //System.out.println(j);
+                //System.out.println("Not found");
+
+            }
+        
+        }
+
+
+    }
+    static void input(){// inputs the data from a file and initializes it
+        try {
+            File myObj = new File("input.txt");
+            if (myObj.createNewFile()) {
+              System.out.println("File created: " + myObj.getName());//create file if it doesnt exist for input
+            } 
+            else
+             {
+                try  {
+                    File obj = new File("input.txt");
+                    Scanner readfile = new Scanner(obj);
+                    while (readfile.hasNextLine()) {//read each line
+                        String data = readfile.nextLine();
+                        char out= data.charAt(8);
+                        
+                        if(out=='1'){// if the output or the X of the line is one extract individual vals
+                            char a = data.charAt(0);// sequential
+                            char b = data.charAt(2);
+                            char c = data.charAt(4);
+                            char d = data.charAt(6);
+                           
+                            //System.out.println("this is running");
+                            operations(a, b, c, d);//call operatoins for comparisions
+                        }
+                        else{
+                            continue;
+                        }
+                    }
+                readfile.close();
+            }
+                
+                catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+              
+            }
+          } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
+        
+       
+     
+        
+
+
+
+
+    }
+
+    public static void initializevals(){
+        // initiliazing the value of each box of k map
         boxinfo box1 = new boxinfo(0, 0, 0, 0,"00");
         infoclass[0]= box1;
         boxinfo box2 = new boxinfo(0, 0, 0, 1,"01");
@@ -50,11 +134,22 @@ public class map {
 
     }
     public static void main(String[] args) {
-        initializevals();
+        initializevals();// initialize the box info
+        input();// call for input
         
 
-        System.out.print(Arrays.toString(infoclass[5].loc));
-    
+        for (int i = 0; i < map.length; i++)
+        {
+          // length returns number of rows
+          for (int j = 0; j < map[i].length; j++)
+          {
+           
+          System.out.print( map[i][j]  + "\t");
+           }
+           System.out.println();
+         }
+      
+    }
 
 
 
@@ -63,4 +158,4 @@ public class map {
         
     }
     
-}
+
