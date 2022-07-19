@@ -86,12 +86,6 @@ public class map {
           }
         
        
-     
-        
-
-
-
-
     }
 
     public static void initializevals(){
