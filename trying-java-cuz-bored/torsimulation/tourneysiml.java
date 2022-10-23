@@ -21,12 +21,7 @@ public class tourneysiml extends Thread  {
             random = (int)(Math.random()*(max-min+1)+min);
             
             players[i][1]= String.valueOf(random);
-
-
         }
-       
-
-        
     }
    
     static void input(){
@@ -53,16 +48,9 @@ public class tourneysiml extends Thread  {
         else{
             System.out.println("invalid number");
         }
-
-
-
-
-
     }
 
     public static void main(String []arg){
-       
-    
     tourneysiml thread = new tourneysiml();
     input();
     //System.out.println(Arrays.deepToString(players));
@@ -73,29 +61,23 @@ public class tourneysiml extends Thread  {
     sep = number/2; 
 
 
-    thread.start();
+    thread.start();//creating thread and comparing in two different regions of the array
     game obj = new game(type);
     
-    for(int i=0; i<=sep-2;i++){
+    for(int i=0; i<=sep-2;i++){// for below the median
             int ti =obj.blitz(i, i+1);//passes index to game
             time = time +ti;
            }
-    System.out.println(sep-1);
-    int ti = obj.blitz(sep-1,number-1);
-
-    
-
+   
+    int ti = obj.blitz(sep-1,number-1);//final comparision
     }  
 
 
-
-    
-
-    public void run(){
+    public void run(){//for above the median
         game obj = new game(type);
         for(int i=sep; i<number-1;i++){
-                int ti =  obj.blitz(i, i+1);//passes index to game
-               time = time +ti; 
+            int ti =  obj.blitz(i, i+1);//passes index to game
+            time = time +ti; 
                //System.out.println(Arrays.deepToString(players));
             }
 
